@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NoPreloading, PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GameListComponent } from './features/game/game-list/game-list.component';
 import { NewOneComponent } from './features/game/new-one/new-one.component';
+import { CustomPreloadingStrategy } from './shared/tools/custom-prefetch';
 import { GameStatsComponent } from './features/game/game-stats/game-stats.component';
 
 const routes: Routes = [{
@@ -14,13 +15,16 @@ const routes: Routes = [{
 },
 {
   path: 'stats',
-  component: GameStatsComponent
+  loadChildren: () => import('stats').then(m => m.statsRoutes),
+  data: {
+    prefetch: true
+  }
 }
-
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: CustomPreloadingStrategy  })],
+  exports: [RouterModule],
+  providers: [CustomPreloadingStrategy]
 })
 export class AppRoutingModule { }
