@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { GameDto } from '../../../core/models/game.dto';
 import { GameService } from '../services/game.service';
-import { SearchStore } from 'my-search';
+import { SearchState, SearchStore } from 'my-search';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'game-game-list',
@@ -10,19 +10,12 @@ import { SearchStore } from 'my-search';
     styleUrls: ['./game-list.component.css'],
     standalone: false
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent {
+  private readonly gameService = inject(GameService)
   private readonly searchStore = inject(SearchStore)
-  games: GameDto[] = []; // statefull
-  searchItem = '';
+  query = this.searchStore.asSignal;
+  private items = toSignal(this.gameService.getAll(3))
 
-  constructor(private gameService: GameService) { }
-
-  ngOnInit(): void {
-    this.searchStore.asObservable.subscribe((search) => {
-      console.info(search)
-    });
-
-    this.gameService.getAll(3).subscribe(items => this.games = items);
-  }
+  games = computed(() => this.items()?.filter(item => item.title.startsWith(this.query().value ?? '')))
 
 }

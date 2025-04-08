@@ -13,7 +13,8 @@
     "start:api": "pm2 restart ../api/long-api/game-api/bin/www",
 
     "build:libs:search": "ng build search --configuration production",
-    "build:libs": "npm run build:libs:search",
+    "build:libs:stats": "ng build stats --configuration production",
+    "build:libs": "npm run build:libs:search && npm run build:libs:stats",
 
     "prestart": "npm run build:libs",
     "start": "ng serve",
