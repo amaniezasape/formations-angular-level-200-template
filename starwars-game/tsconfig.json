@@ -18,7 +18,7 @@
       "my-search": [
         "./dist/search"
       ],
-      "my-stats": [
+      "stats": [
         "./dist/stats"
       ]
     },

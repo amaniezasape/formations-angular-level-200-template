@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NoPreloading, PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { GameListComponent } from './features/game/game-list/game-list.component';
 import { NewOneComponent } from './features/game/new-one/new-one.component';
 import { CustomPreloadingStrategy } from './shared/tools/custom-prefetch';
@@ -15,10 +15,7 @@ const routes: Routes = [{
 },
 {
   path: 'stats',
-  loadChildren: () => import('stats').then(m => m.statsRoutes),
-  data: {
-    prefetch: true
-  }
+  component: GameStatsComponent
 }
 ];
 

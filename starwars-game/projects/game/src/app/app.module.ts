@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { GameModule } from './features/game/game.module';
 import { HeaderComponent, HeaderModule } from './shared/components/header/header.component';
 import { SideBarComponent } from './shared/components/side-bar/side-bar.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -18,7 +20,10 @@ import { SideBarComponent } from './shared/components/side-bar/side-bar.componen
     imports: [BrowserModule,
         AppRoutingModule,
         GameModule,
-        HeaderModule
+        HeaderModule,
+        StoreModule.forRoot(reducers, {
+      metaReducers
+    })
       ]
 })
 export class AppModule { }

@@ -1,15 +1,17 @@
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { StatComponent } from "../../../../../../stats/src/lib/stat.component";
-import { StatStore } from "my-stats"
 import { toSignal } from '@angular/core/rxjs-interop';
+import { StatComponent, StatsInfrastructure } from "stats";
 
 @Component({
   selector: 'game-game-stats',
-  imports: [StatComponent],
+  imports: [StatComponent, JsonPipe, AsyncPipe],
   templateUrl: './game-stats.component.html',
-  styleUrl: './game-stats.component.css'
+  styleUrl: './game-stats.component.css',
+  providers: [StatsInfrastructure]
 })
 export class GameStatsComponent {
-  private readonly StatStore = inject(StatStore)
-  stats = toSignal(this.StatStore.getFakeStats())
+  private readonly StatInfra = inject(StatsInfrastructure)
+  stats = toSignal(this.StatInfra.getAll())
+  // stats = this.StatStore.getAll()
 }

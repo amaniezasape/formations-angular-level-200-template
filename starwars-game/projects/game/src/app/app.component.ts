@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import d3 from 'd3';
 
 @Component({
     selector: 'game-root',
@@ -8,13 +7,5 @@ import d3 from 'd3';
     standalone: false
 })
 export class AppComponent {
-  // title = 'game';
-  title = signal<string>('game')
-
-
-  generate(): void {
-    this.title.set('game2')
-
-    //d3.geoPath()
-  }
+  title = signal<string>('Star Wars Game')
 }

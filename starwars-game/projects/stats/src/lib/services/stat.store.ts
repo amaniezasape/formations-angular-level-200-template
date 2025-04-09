@@ -1,42 +1,34 @@
-import { computed, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { StatList } from '../models/stat-state';
+import { computed, inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { StatsInfrastructure } from './stat.infra';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class StatsBusiness {
-  getFakeStats(): Observable<StatList> {
-
-    const stats = [
-      { year: 2025, month: 4, nbSuccess: 10, nbFailure: 2 },
-      { year: 2025, month: 3, nbSuccess: 5, nbFailure: 10 },
-      { year: 2025, month: 2, nbSuccess: 15, nbFailure: 5 },
-      { year: 2025, month: 1, nbSuccess: 20, nbFailure: 10 },
-      { year: 2024, month: 12, nbSuccess: 2, nbFailure: 3 },
-    ]
-
-    return of(stats);
-  }
+@Injectable()
+export class StatStore {
+  private readonly infra = inject(StatsInfrastructure)
+  private readonly statsSignal = toSignal(this.infra.getAll())
 
   get years() {
-    return computed(() => [... new Set(this.stats()?.map(item => item.year))])
+    return computed(() => [... new Set(this.stats()?.map(item => item.year.toString()))])
   }
 
-  get statsByYear() {
+  get successesByYear() {
     return computed(() => {
-      const stats = this.stats()
+      const stats = this.statsSignal()
       const values: Record<number, number> = {}
 
       stats?.forEach(stat => {
-        values[stat.year] = stat.nbSuccess
+        if (!values[stat.year]) {
+          values[stat.year] = 0
+        }
+        values[stat.year] += stat.nbSuccess
       })
+
+      return Object.values(values)
     })
   }
 
   get stats() {
-    return toSignal(this.getFakeStats())
+    return this.statsSignal
   }
 
 }

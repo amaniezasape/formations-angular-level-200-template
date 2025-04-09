@@ -1,5 +1,5 @@
-@let items = stats();
+ @let items = stats();
+<!-- {{ items | json }} -->
 @if (items) {
-    <br><br>
     <lib-stats [inputStats]="items"></lib-stats>
 }
