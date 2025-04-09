@@ -5,10 +5,10 @@ import { GameService } from './services/game.service';
 import { BoolToTextPipe } from '../../shared/pipes/bool-to-text.pipe';
 import { BoolToColorDirective } from '../../shared/directives/bool-to-color.directive';
 import { GameTableComponent } from './game-table/game-table.component';
-import { GameRowComponent } from './game-row/game-row.component';
 import { FormsModule } from '@angular/forms';
 import { GridModule } from '../../shared/components/grid/grid.module';
 import { NewOneComponent } from './new-one/new-one.component';
+import { GameTypeAdminComponent } from './game-type-admin/game-type-admin.component';
 
 
 
@@ -18,14 +18,14 @@ import { NewOneComponent } from './new-one/new-one.component';
     BoolToTextPipe,
     BoolToColorDirective,
     GameTableComponent,
-    GameRowComponent,
     NewOneComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     GridModule,
-    AsyncPipe
+    AsyncPipe,
+    GameTypeAdminComponent
   ],
   providers: [
     GameService

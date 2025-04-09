@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { GameDto } from '../../../core/models/game.dto';
+import { GameDto } from '../models/game.dto';
 
 @Component({
     selector: 'game-table',
@@ -7,14 +7,6 @@ import { GameDto } from '../../../core/models/game.dto';
     styleUrls: ['./game-table.component.css'],
     standalone: false
 })
-export class GameTableComponent implements OnInit {
+export class GameTableComponent {
   @Input() games: GameDto[] = [];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-
-
 }

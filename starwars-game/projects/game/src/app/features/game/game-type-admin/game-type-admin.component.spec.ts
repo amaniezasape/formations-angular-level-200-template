@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GameRowComponent } from './game-row.component';
+import { GameTypeAdminComponent } from './game-type-admin.component';
 
-describe('GameRowComponent', () => {
-  let component: GameRowComponent;
-  let fixture: ComponentFixture<GameRowComponent>;
+describe('GameTypeAdminComponent', () => {
+  let component: GameTypeAdminComponent;
+  let fixture: ComponentFixture<GameTypeAdminComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameRowComponent ]
+      imports: [GameTypeAdminComponent]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(GameRowComponent);
+    fixture = TestBed.createComponent(GameTypeAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

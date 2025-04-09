@@ -10,6 +10,7 @@ import { HeaderComponent, HeaderModule } from './shared/components/header/header
 import { SideBarComponent } from './shared/components/side-bar/side-bar.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -23,7 +24,8 @@ import { reducers, metaReducers } from './reducers';
         HeaderModule,
         StoreModule.forRoot(reducers, {
       metaReducers
-    })
+    }),
+        EffectsModule.forRoot([])
       ]
 })
 export class AppModule { }
